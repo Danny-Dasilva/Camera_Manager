@@ -1,5 +1,5 @@
-from subprocess import check_output
-
+from subprocess import check_output, Popen, call
+import os
 import re
 
 
@@ -46,3 +46,9 @@ for lines in t.splitlines():
 
 
 print(values)
+
+def set_values(key, value):
+      os.system(f'v4l2-ctl -d /dev/video0 --set-ctrl {key}={value}')
+#     #call(['v4l2-ctl', '-d', 'v4l2-ctl', '--set-ctrl', f'{key}={value}' ])
+
+set_values("saturation", 0)
