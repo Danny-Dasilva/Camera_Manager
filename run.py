@@ -2,6 +2,8 @@ from subprocess import check_output
 
 import re
 
+
+values = {}
 def return_values(string):
     mini = string.index("min") + 1
     maxi = string.index("max") + 1
@@ -13,19 +15,23 @@ def parse_string(string):
     lst = lst.split()
     if lst[0] == 'brightness':
         mi, ma, default = return_values(lst)
-        print(lst[0], lst[mi], lst[ma], lst[default])
+        values[lst[0]] = {'min': lst[mi], 'max': lst[ma], 'default': lst[default]}
+        
     if lst[0] == 'contrast':
         mi, ma, default = return_values(lst)
-        print(lst[0], lst[mi], lst[ma], lst[default])
+        values[lst[0]] = {'min': lst[mi], 'max': lst[ma], 'default': lst[default]}
+        
     if lst[0] == 'saturation':
         mi, ma, default = return_values(lst)
-        print(lst[0], lst[mi], lst[ma], lst[default])
+        values[lst[0]] = {'min': lst[mi], 'max': lst[ma], 'default': lst[default]}
+        
     if lst[0] == 'white_balance_temperature':
         mi, ma, default = return_values(lst)
-        print(lst[0], lst[mi], lst[ma], lst[default])
+        values[lst[0]] = {'min': lst[mi], 'max': lst[ma], 'default': lst[default]}
+
     if lst[0] == 'exposure_absolute':
         mi, ma, default = return_values(lst)
-        print(lst[0], lst[mi], lst[ma], lst[default])
+        values[lst[0]] = {'min': lst[mi], 'max': lst[ma], 'default': lst[default]}
 
     if lst[0] == 'exposure_auto':
         pass
@@ -37,3 +43,6 @@ t = check_output(['v4l2-ctl', '-l']).decode('utf-8')
 
 for lines in t.splitlines():
     parse_string(lines) 
+
+
+print(values)
